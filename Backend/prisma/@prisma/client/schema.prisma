@@ -1,0 +1,41 @@
+datasource db {
+  provider = "postgresql"
+  url      = env("DATABASE_URL") // Add DATABASE_URL to .env
+}
+
+generator client {
+  provider      = "prisma-client-js"
+  output        = "@prisma/client"
+}
+
+model Doctor {
+  Doctor_id              Int      @id @default(autoincrement())
+  Doctor_FirstName       String   
+  Doctor_SecondName      String   
+  Doctor_email           String   @unique
+  Doctor_phone           String
+  Doctor_Password        String
+  Doctor_Gender          String
+  Doctor_Fee             Int
+  Doctor_DiscountedFee   Int
+  Doctor_Experience      Int
+}
+
+model User {
+  User_id              Int      @id @default(autoincrement())
+  User_FirstName       String   
+  User_SecondName      String   
+  User_email           String   @unique
+  User_phone           Int
+  User_Password        String
+  User_Gender          String
+}
+
+generator repo {
+  provider = "prisma-repo"
+  output   = "../src/repository"
+  query    = true
+  warn     = true
+  info     = true
+  error    = true
+}
